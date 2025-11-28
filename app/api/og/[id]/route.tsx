@@ -27,7 +27,7 @@ export async function GET(
   }
 
   const title = property.title ?? 'KazaSwap Property';
-  const imageUrl = property.main_image_url;
+  const imageUrl = property.main_image_url || 'https://elweutkgdoftooxpakyj.supabase.co/storage/v1/object/public/property-images/80abac3a-d021-46ec-b3be-0b1b896f4c69/1761212852761.jpg';
 
   const OGComponent = () => (
     <div
