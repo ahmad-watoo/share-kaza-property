@@ -1,14 +1,9 @@
-// lib/supabaseServer.ts
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const supabaseUrl =
+  process.env.NEXT_PUBLIC_SUPABASE_URL || "https://dummy.supabase.co";
 
-// if (!supabaseUrl || !anonKey) {
-//   throw new Error('Missing Supabase ENV vars');
-// }
+const supabaseAnonKey =
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "dummy-anon-key";
 
-export const supabaseServer = createClient(
-  supabaseUrl || "https://dummy-url.supabase.co",
-  anonKey || "dummy-key"
-);
+export const supabaseServer = createClient(supabaseUrl, supabaseAnonKey);

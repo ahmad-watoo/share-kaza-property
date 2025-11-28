@@ -1,12 +1,10 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 export default function Redirector({ id }: { id: string }) {
   useEffect(() => {
-    if (typeof window !== "undefined") {
     window.location.href = `https://kazaswap.co/property/${id}`;
-  }
   }, [id]);
 
   return (
@@ -15,4 +13,3 @@ export default function Redirector({ id }: { id: string }) {
     </div>
   );
 }
-
