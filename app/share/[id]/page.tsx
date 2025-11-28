@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const title = property?.title ?? 'KazaSwap Property';
   const description =
-    property?.description ?? 'View this property on KazaSwap';
+    property?.description ?? 'View this property on KazaSwap.';
   const ogImage = `${SITE}/api/og/${id}`;
 
   return {
