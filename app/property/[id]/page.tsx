@@ -20,14 +20,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     .select("title, description, main_image_url")
     .eq("id", id)
     .single();
-
+   console.log(`proeprty data:=> ${property}`)
   const title = property?.title || "Property Listing";
   const description = property?.description || "View property details";
 
   // Build thumbnail URL by appending "_thumbnail" before extension
   let imageUrl = property?.main_image_url || "";
   imageUrl = imageUrl.replace(/(\.[a-zA-Z0-9]+)$/, "_thumbnail$1");
-
+  console.log(`image url,${imageUrl},title ${title}, ${description} `)
   return {
     title,
     description,
@@ -51,5 +51,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function PropertyPage({ params }: Props) {
   const { id } = await params; 
+  
   return <h1>Property: {id}</h1>;
 }

@@ -4,6 +4,6 @@ const supabaseUrl =
   process.env.NEXT_PUBLIC_SUPABASE_URL || "https://dummy.supabase.co";
 
 const supabaseAnonKey =
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "dummy-anon-key";
+  process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY || "dummy-anon-key";
 
-export const supabaseServer = createClient(supabaseUrl, supabaseAnonKey);
+export const supabaseServer = createClient(supabaseUrl, supabaseAnonKey,{ auth: { persistSession: false } });
