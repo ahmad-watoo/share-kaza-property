@@ -1,16 +1,20 @@
+export const dynamic = "force-dynamic";
+export const dynamicParams = true;
+export const revalidate = 0;
+
 import { Metadata } from "next";
 import { supabaseServer } from "@/lib/supabaseServer";
-export const dynamic = "force-dynamic";
 
 type Props = {
-  params: { id: string };
+  params: Promise<{ id: string }>; // notice it's a Promise now
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    console.log(params)
-  const { id } = params;
+  // ⬇⬇ REQUIRED FIX FOR NEXTJS 15
+  const { id } = await params;
 
-  // Fetch property from Supabase
+  console.log("metadata id:", id);
+
   const { data: property } = await supabaseServer
     .from("properties")
     .select("title, description, main_image_url")
@@ -45,11 +49,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function PropertyPage({ params }: Props) {
-  return (
-    <div>
-      <h1>Property {params.id}</h1>
-      {/* Your UI here */}
-    </div>
-  );
+export default async function PropertyPage({ params }: Props) {
+  const { id } = await params; 
+  return <h1>Property: {id}</h1>;
 }
