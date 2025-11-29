@@ -7,7 +7,7 @@ export const size = {
 };
 
 export const contentType = "image/png";
-
+console.log('supabse keys',supabaseServer)
 export default async function OGImage({ params }: { params: { id: string }}) {
   const { data: property } = await supabaseServer
     .from("properties")
