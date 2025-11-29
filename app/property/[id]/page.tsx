@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         url: `https://kazaswap.co/property/${id}`,
         images: [
             // `https://share-kaza-property-io4q.vercel.app/property/${id}/opengraph-image`,
-            `${imageUrl}`
+            `${imageUrl}` || `https://share-kaza-property-io4q.vercel.app/property/${id}/opengraph-image`,
         ],
     },
     twitter: {
