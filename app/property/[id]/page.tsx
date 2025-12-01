@@ -53,6 +53,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function PropertyPage({ params }: Props) {
   const { id } = await params; 
   
-  // return <h2>Property: <b>{id}</b></h2>;
-   redirect(`https://kazaswap.co/property/${id}`);
+   return (
+    <html>
+      <head>
+        <meta httpEquiv="refresh" content={`0;url=https://kazaswap.co/property/${id}`} />
+      </head>
+      <body>
+        <p>Redirecting...</p>
+        <script>
+          {`window.location.href = "https://kazaswap.co/property/${id}";`}
+        </script>
+      </body>
+    </html>
+  );
 }
