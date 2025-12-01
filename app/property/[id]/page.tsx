@@ -37,8 +37,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         type: "website",
         url: `https://kazaswap.co/property/${id}`,
         images: [
-            // `https://share-kaza-property-io4q.vercel.app/property/${id}/opengraph-image`,
-            `${imageUrl}` || `https://share-kaza-property-io4q.vercel.app/property/${id}/opengraph-image`,
+            
+            imageUrl || `https://share-kaza-property-io4q.vercel.app/property/${id}/opengraph-image`,
         ],
     },
     twitter: {
@@ -56,7 +56,6 @@ export default async function PropertyPage({ params }: Props) {
    return (
     <html>
       <head>
-        {/* WhatsApp ignores JS, but sees this metadata */}
         <meta httpEquiv="refresh" content={`0; url=${dest}`} />
       </head>
       <body>
