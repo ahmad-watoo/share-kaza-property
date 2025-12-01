@@ -1,37 +1,45 @@
+export const dynamic = "force-dynamic";
+export const dynamicParams = true;
+export const revalidate = 0;
 import { redirect } from "next/navigation";
 import { Metadata } from "next";
 import { supabaseServer } from "@/lib/supabaseServer";
 
-export const dynamic = "force-dynamic";
-export const dynamicParams = true;
-export const revalidate = 0;
-
 type Props = {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string }>; // notice it's a Promise now
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  // ⬇⬇ REQUIRED FIX FOR NEXTJS 15
   const { id } = await params;
+
+  console.log("metadata id:", id);
 
   const { data: property } = await supabaseServer
     .from("properties")
     .select("title, description, main_image_url")
     .eq("id", id)
     .single();
+   console.log(`proeprty data:=> ${property}`)
   const title = property?.title || "Property Listing";
   const description = property?.description || "View property details";
 
+  // Build thumbnail URL by appending "_thumbnail" before extension
   let imageUrl = property?.main_image_url || "";
   imageUrl = imageUrl.replace(/(\.[a-zA-Z0-9]+)$/, "_thumbnail$1");
+  console.log(`image url,${imageUrl},title ${title}, ${description} `)
   return {
     title,
     description,
     openGraph: {
-      title,
-      description,
-      type: "website",
-      url: `https://kazaswap.co/property/${id}`, // correct canonical URL
-      images: [imageUrl],
+        title,
+        description,
+        type: "website",
+        url: `https://kazaswap.co/property/${id}`,
+        images: [
+            // `https://share-kaza-property-io4q.vercel.app/property/${id}/opengraph-image`,
+            `${imageUrl}` || `https://share-kaza-property-io4q.vercel.app/property/${id}/opengraph-image`,
+        ],
     },
     twitter: {
       card: "summary_large_image",
@@ -43,8 +51,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function PropertyPage({ params }: Props) {
-  const { id } = await params;
-
-  // USER REDIRECT
-  redirect(`https://kazaswap.co/property/${id}`);
+  const { id } = await params; 
+  
+  return <h2>Property: <b>{id}</b></h2>;
 }
