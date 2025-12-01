@@ -34,6 +34,7 @@ export default async function OGImage({ params }: { params: { id: string }}) {
         <img
           src={main_image_url}
           width="1200"
+          alt="image preview"
           height="400"
           style={{ objectFit: "cover" }}
         />
