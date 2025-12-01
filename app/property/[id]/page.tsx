@@ -52,17 +52,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function PropertyPage({ params }: Props) {
   const { id } = await params; 
-  
+    const dest = `https://kazaswap.co/property/${id}`;
    return (
     <html>
       <head>
-        <meta httpEquiv="refresh" content={`0;url=https://kazaswap.co/property/${id}`} />
+        {/* WhatsApp ignores JS, but sees this metadata */}
+        <meta httpEquiv="refresh" content={`0; url=${dest}`} />
       </head>
       <body>
         <p>Redirecting...</p>
-        <script>
-          {`window.location.href = "https://kazaswap.co/property/${id}";`}
-        </script>
+        <script dangerouslySetInnerHTML={{
+          __html: `window.location.href='${dest}'`
+        }}/>
       </body>
     </html>
   );
